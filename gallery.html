@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery - Personal Website</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .gallery {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            padding: 20px;
+        }
+        .gallery-item {
+            text-align: center;
+            max-width: 300px;
+        }
+        .thumbnail {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .thumbnail:hover {
+            opacity: 0.8;
+        }
+        .image-description {
+            margin-top: 8px;
+            font-size: 14px;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Welcome to My Personal Website</h1>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="index.html">HOME</a></li>
+            <li class="dropdown">
+                <a href="#" class="dropbtn">ABOUT</a>
+                <div class="dropdown-content">
+                    <a href="skills.html">Skills I'm Developing</a>
+                    <a href="goals.html">My Goals as a Student</a>
+                    <a href="funfacts.html">Fun Facts About Me</a>
+                </div>
+            </li>
+            <li><a href="gallery.html">GALLERY</a></li>
+            <li><a href="contact.html">CONTACT</a></li>
+            <a href="javascript:void(0);" class="logout-button" onclick="confirmLogout()">LOG OUT</a>
+        </ul>
+    </nav>
+
+    <section id="gallery">
+        <h2 style="text-align: center;">Gallery</h2>
+        <p style="text-align: center;">Check out some of the images from my recent photography:</p>
+        
+        <div class="gallery">
+            <div class="gallery-item">
+                <img src="Images/lab1.jpg" alt="Lab 1" class="thumbnail" onclick="openLightbox(); showImage(0);">
+                <p class="image-description">Description for Image 1</p>
+            </div>
+            <div class="gallery-item">
+                <img src="Images/lab2.jpg" alt="Lab 2" class="thumbnail" onclick="openLightbox(); showImage(1);">
+                <p class="image-description">Description for Image 2</p>
+            </div>
+            <div class="gallery-item">
+                <img src="Images/lab3.jpg" alt="Lab 3" class="thumbnail" onclick="openLightbox(); showImage(2);">
+                <p class="image-description">Description for Image 3</p>
+            </div>
+            <div class="gallery-item">
+                <img src="Images/lab4.jpg" alt="Lab 4" class="thumbnail" onclick="openLightbox(); showImage(3);">
+                <p class="image-description">Description for Image 4</p>
+            </div>
+            <div class="gallery-item">
+                <img src="Images/lab5.jpg" alt="Lab 5" class="thumbnail" onclick="openLightbox(); showImage(4);">
+                <p class="image-description">Description for Image 5</p>
+            </div>
+            <div class="gallery-item">
+                <img src="Images/lab6.jpg" alt="Lab 6" class="thumbnail" onclick="openLightbox(); showImage(5);">
+                <p class="image-description">Description for Image 6</p>
+            </div>
+        </div>
+
+        <!-- Lightbox container -->
+        <div id="lightbox" class="lightbox" style="display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.9);">
+            <span class="close" onclick="closeLightbox()" style="position: absolute; top: 15px; right: 35px; color: #f1f1f1; font-size: 40px; font-weight: bold; cursor: pointer;">&times;</span>
+            <img class="lightbox-content" id="lightboxImage" style="margin: auto; display: block; max-width: 90%; max-height: 80%; padding-top: 40px;">
+            <a class="prev" onclick="changeImage(-1)" style="position: absolute; top: 50%; left: 20px; font-size: 30px; color: white; cursor: pointer; text-decoration: none;">&#10094;</a>
+            <a class="next" onclick="changeImage(1)" style="position: absolute; top: 50%; right: 20px; font-size: 30px; color: white; cursor: pointer; text-decoration: none;">&#10095;</a>
+        </div>
+    </section>
+
+    <script>
+        function confirmLogout() {
+            const confirmLogout = confirm("Are you sure you want to log out?");
+            if (confirmLogout) {
+                localStorage.removeItem('isLoggedIn');
+                window.location.href = 'login.html';
+            }
+        }
+
+        let currentImageIndex = 0;
+        const images = document.querySelectorAll('.thumbnail');
+
+        function openLightbox() {
+            document.getElementById('lightbox').style.display = 'block';
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').style.display = 'none';
+        }
+
+        function showImage(index) {
+            currentImageIndex = index;
+            document.getElementById('lightboxImage').src = images[currentImageIndex].src;
+        }
+
+        function changeImage(direction) {
+            currentImageIndex += direction;
+            if (currentImageIndex < 0) {
+                currentImageIndex = images.length - 1;
+            } else if (currentImageIndex >= images.length) {
+                currentImageIndex = 0;
+            }
+            showImage(currentImageIndex);
+        }
+    </script>
+
+    <footer>
+        <p style="text-align: center; margin-top: 30px; padding: 20px; background: #f1f1f1;">&copy; 2026 Deselle. All rights reserved.</p>
+    </footer>
+</body>
+</html>
